@@ -11,7 +11,7 @@ def main():
     selected_words = select_five_words(words)
     score = user_spelling_score(selected_words)
     if score > 5:
-        emoji = "( ͡👁️ ‿ ͡👁️)"
+        emoji = "( ͡👁️ ‿ ͡👁️ )"
     else:
         emoji = "¯\_( ͡° _> ͡°)_/¯"
     print(f"Your final score is {score} {emoji}")
@@ -96,6 +96,12 @@ def user_spelling_score(selected_words):
     score = 0
     life = 3
     for word in selected_words:
+        headers = ["score", "life"]
+        table = [
+            [score, life],
+        ]
+        print("Your current score and life is ")
+        print(tabulate(table, headers, tablefmt="simple_grid"))
         if life == 0:
             return score
         if score == 2 or score == 5:
