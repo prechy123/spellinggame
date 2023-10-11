@@ -1,32 +1,24 @@
 from tabulate import tabulate #type: ignore
 import csv
 import random
-import pyttsx3
+import pyttsx3 #type: ignore
 
 
 def main():
     username = input("Whats your username: ").capitalize().strip()
     level: int = get_user_level()
     difficulty: str = get_user_difficulty(level)
-    words = get_words(difficulty)
-    selected_words = select_five_words(words)
-    score = user_spelling_score(selected_words)
+    words: list = get_words(difficulty)
+    selected_words: set = select_five_words(words)
+    score: int = user_spelling_score(selected_words)
     if score > 5:
         emoji = "( ͡👁️ ‿ ͡👁️ )"
     else:
         emoji = "¯\_( ͡° _> ͡°)_/¯"
     print(f"{username} final score is {score} {emoji}")
     save_score(username, score)
-    current = input("Enter {H} to get high-score \nEnter {C} to close game \nEnter {N} to start new game?\n").lower()
-    match current:
-        case "h":
-            get_highscore()
-        case "c":
-            pass
-        case "n":
-            main()
-        case _:
-            print("Enter either {H, C or N}")
+    get_current()
+    
     
 def get_user_level() -> int:
     """
@@ -74,7 +66,7 @@ def get_user_difficulty(level) -> str:
         case _:
             return "None"
         
-def get_words(difficulty):
+def get_words(difficulty) -> list:
     """
     Get words based on user difficulty selected
     :param difficulty: str of user difficulty
@@ -90,7 +82,7 @@ def get_words(difficulty):
                 words.append(row["Word"])
     return words
    
-def select_five_words(words):
+def select_five_words(words) -> set:
     """
     Gets eight unique random from list of words
     :param words: list of words gotting from difficulty
@@ -99,12 +91,13 @@ def select_five_words(words):
     :rtype: list
     """
     selected_words = set()
-    for i in range(1000):
+    for _ in range(1000):
         selected_words.add(random.choice(words))
         if len(selected_words) == 8:
-            return selected_words
+            break
+    return selected_words
    
-def user_spelling_score(selected_words):
+def user_spelling_score(selected_words) -> int:
     """
     Pronouce each word with robot voice and ask user to spell each word recording their score
     :param selected_words: A list of eight unique words
@@ -159,7 +152,20 @@ def save_score(username, score):
         writer = csv.DictWriter(file, fieldnames=["name", "score"])
         # writer.writeheader()
         writer.writerow({"name": username, "score": score})
-   
+
+def get_current():
+    current = input("Enter {H} to get high-score \nEnter {C} to close game \nEnter {N} to start new game?\n").lower()
+    match current:
+        case "h":
+            get_highscore()
+            get_current()
+        case "c":
+            pass
+        case "n":
+            main()
+        case _:
+            print("Enter either {H, C or N}")
+
 def get_highscore():
     print("highscore")
         
