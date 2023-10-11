@@ -5,8 +5,6 @@ def main():
     level: int = get_user_level()
     difficulty: str = get_user_difficulty(level)
     
-
-
 def get_user_level() -> int:
     """
     get user level and using tabulate package to format level table
@@ -31,7 +29,6 @@ def get_user_level() -> int:
                 print("level must be in range of 1 to 5")
                 continue
     
-
 def get_user_difficulty(level) -> str:
     """
     Get user difficulty
@@ -52,8 +49,6 @@ def get_user_difficulty(level) -> str:
         case 5:
             return "Impossible"
         case _:
-            return None
-
-
+            return "None"
 if __name__ == "__main__":
     main()
