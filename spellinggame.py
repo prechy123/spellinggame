@@ -162,6 +162,9 @@ def save_score(username, score):
 
 
 def get_current():
+    """
+    To get use next move to either check highscore or cancel the game or start a new game
+    """
     current = input(
         "Enter {H} to get high-score \nEnter {C} to close game \nEnter {N} to start new game?\n"
     ).lower()
@@ -178,6 +181,9 @@ def get_current():
 
 
 def get_highscore():
+    """
+    To get the highscores and arrange in descending order based on score, and using pandas to format it making it understandable
+    """
     highscores = []
     sorted_highscores = []
     with open("score.csv", "r") as file:
@@ -186,6 +192,7 @@ def get_highscore():
             highscores.append({"name": row["name"], "score": row["score"]})
     for highscore in sorted(highscores, key=lambda h: h["score"], reverse=True):
         sorted_highscores.append(highscore)
+    # check from using pandas to using tabulate library
     print(pd.DataFrame(sorted_highscores))
 
 
