@@ -17,6 +17,16 @@ def main():
         emoji = "¯\_( ͡° _> ͡°)_/¯"
     print(f"{username} final score is {score} {emoji}")
     save_score(username, score)
+    current = input("Enter {H} to get high-score \nEnter {C} to close game \nEnter {N} to start new game?\n").lower()
+    match current:
+        case "h":
+            get_highscore()
+        case "c":
+            pass
+        case "n":
+            main()
+        case _:
+            print("Enter either {H, C or N}")
     
 def get_user_level() -> int:
     """
@@ -150,6 +160,8 @@ def save_score(username, score):
         # writer.writeheader()
         writer.writerow({"name": username, "score": score})
    
+def get_highscore():
+    print("highscore")
         
 if __name__ == "__main__":
     main()
