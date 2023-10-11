@@ -1,6 +1,7 @@
 from tabulate import tabulate #type: ignore
 import csv
 import random
+import pyttsx3
 
 
 def main():
@@ -8,7 +9,12 @@ def main():
     difficulty: str = get_user_difficulty(level)
     words = get_words(difficulty)
     selected_words = select_five_words(words)
-    print(selected_words)
+    score = user_spelling_score(selected_words)
+    if score > 5:
+        emoji = "( ͡👁️ ‿ ͡👁️)"
+    else:
+        emoji = "¯\_( ͡° _> ͡°)_/¯"
+    print(f"Your final score is {score} {emoji}")
     
 def get_user_level() -> int:
     """
@@ -86,6 +92,31 @@ def select_five_words(words):
         if len(selected_words) == 8:
             return selected_words
    
+def user_spelling_score(selected_words):
+    score = 0
+    life = 3
+    for word in selected_words:
+        if life == 0:
+            return score
+        if score == 2 or score == 5:
+            life += 1
+        print("Pronouncing word...")
+        word_to_audio(word)
+        answer = input("Enter Spelling: ").capitalize()
+        if answer == word:
+            score += 1
+            print("👍")
+        else:
+            life -= 1
+            print("👎")
+    return score
+        
+def word_to_audio(word):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 120)
+    engine.say(word)
+    engine.runAndWait()
+    
         
 if __name__ == "__main__":
     main()
