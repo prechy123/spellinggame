@@ -1,7 +1,7 @@
-from tabulate import tabulate #type: ignore
+from tabulate import tabulate  # type: ignore
 import csv
 import random
-import pyttsx3 #type: ignore
+import pyttsx3  # type: ignore
 
 
 def main():
@@ -18,8 +18,8 @@ def main():
     print(f"{username} final score is {score} {emoji}")
     save_score(username, score)
     get_current()
-    
-    
+
+
 def get_user_level() -> int:
     """
     get user level and using tabulate package to format level table
@@ -33,7 +33,7 @@ def get_user_level() -> int:
         [3, "Advanced"],
         [4, "Expert"],
         [5, "Impossible"],
-        ]
+    ]
     print(tabulate(table, headers, tablefmt="simple_grid"))
     while True:
         level = input("Enter level[1-5]: ")
@@ -43,7 +43,8 @@ def get_user_level() -> int:
             case _:
                 print("level must be in range of 1 to 5")
                 continue
-    
+
+
 def get_user_difficulty(level) -> str:
     """
     Get user difficulty
@@ -65,7 +66,8 @@ def get_user_difficulty(level) -> str:
             return "Impossible"
         case _:
             return "None"
-        
+
+
 def get_words(difficulty) -> list:
     """
     Get words based on user difficulty selected
@@ -81,7 +83,8 @@ def get_words(difficulty) -> list:
             if row["Difficulty"] == difficulty:
                 words.append(row["Word"])
     return words
-   
+
+
 def select_five_words(words) -> set:
     """
     Gets eight unique random from list of words
@@ -96,7 +99,8 @@ def select_five_words(words) -> set:
         if len(selected_words) == 8:
             break
     return selected_words
-   
+
+
 def user_spelling_score(selected_words) -> int:
     """
     Pronouce each word with robot voice and ask user to spell each word recording their score
@@ -128,7 +132,8 @@ def user_spelling_score(selected_words) -> int:
             life -= 1
             print("👎")
     return score
-        
+
+
 def word_to_audio(word):
     """
     Turns word to audio
@@ -136,10 +141,11 @@ def word_to_audio(word):
     :type word: str
     """
     engine = pyttsx3.init()
-    engine.setProperty('rate', 120)
+    engine.setProperty("rate", 120)
     engine.say(word)
     engine.runAndWait()
-    
+
+
 def save_score(username, score):
     """
     Saves the username and score in score.csv file
@@ -153,8 +159,11 @@ def save_score(username, score):
         # writer.writeheader()
         writer.writerow({"name": username, "score": score})
 
+
 def get_current():
-    current = input("Enter {H} to get high-score \nEnter {C} to close game \nEnter {N} to start new game?\n").lower()
+    current = input(
+        "Enter {H} to get high-score \nEnter {C} to close game \nEnter {N} to start new game?\n"
+    ).lower()
     match current:
         case "h":
             get_highscore()
@@ -166,8 +175,10 @@ def get_current():
         case _:
             print("Enter either {H, C or N}")
 
+
 def get_highscore():
     print("highscore")
-        
+
+
 if __name__ == "__main__":
     main()
