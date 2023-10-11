@@ -1,9 +1,14 @@
 from tabulate import tabulate #type: ignore
+import csv
+import random
 
 
 def main():
     level: int = get_user_level()
     difficulty: str = get_user_difficulty(level)
+    words = get_words(difficulty)
+    selected_words = select_five_words(words)
+    print(selected_words)
     
 def get_user_level() -> int:
     """
@@ -50,5 +55,30 @@ def get_user_difficulty(level) -> str:
             return "Impossible"
         case _:
             return "None"
+        
+def get_words(difficulty):
+    """
+    Get words based on user difficulty selected
+    :param difficulty: str of user difficulty
+    :type difficulty: str
+    :return: A list of string with words gotten from csv file
+    :rtype: list
+    """
+    words = []
+    with open("gamewords.csv", "r") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            if row["Difficulty"] == difficulty:
+                words.append(row["Word"])
+    return words
+   
+def select_five_words(words):
+    selected_words = set()
+    for i in range(1000):
+        selected_words.add(random.choice(words))
+        if len(selected_words) == 5:
+            return selected_words
+   
+        
 if __name__ == "__main__":
     main()
