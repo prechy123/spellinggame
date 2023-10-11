@@ -73,10 +73,17 @@ def get_words(difficulty):
     return words
    
 def select_five_words(words):
+    """
+    Gets eight unique random from list of words
+    :param words: list of words gotting from difficulty
+    :type words: list
+    :return: A list of 8 unique words
+    :rtype: list
+    """
     selected_words = set()
     for i in range(1000):
         selected_words.add(random.choice(words))
-        if len(selected_words) == 5:
+        if len(selected_words) == 8:
             return selected_words
    
         
