@@ -182,14 +182,10 @@ def get_highscore():
     with open("score.csv", "r") as file:
         reader = csv.DictReader(file)
         for row in reader:
-            highscores.append({
-                "name": row["name"],
-                "score": row["score"]
-            })
+            highscores.append({"name": row["name"], "score": row["score"]})
     for highscore in sorted(highscores, key=lambda h: h["score"], reverse=True):
         sorted_highscores.append(highscore)
     print(sorted_highscores)
-        
 
 
 if __name__ == "__main__":
