@@ -8,7 +8,9 @@ def main():
 
 def get_user_level() -> int:
     """
-    get user level
+    get user level and using tabulate package to format level table
+    :return: An Int of level selected
+    :rtype: Int
     """
     headers = ["Level", "Difficulty"]
     table = [
