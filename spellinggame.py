@@ -2,7 +2,7 @@ from tabulate import tabulate  # type: ignore
 import csv
 import random
 import pyttsx3  # type: ignore
-import pandas as pd
+import pandas as pd  # type: ignore
 
 
 def main():
@@ -187,7 +187,6 @@ def get_highscore():
     for highscore in sorted(highscores, key=lambda h: h["score"], reverse=True):
         sorted_highscores.append(highscore)
     print(pd.DataFrame(sorted_highscores))
-    
 
 
 if __name__ == "__main__":
