@@ -95,6 +95,13 @@ def select_five_words(words):
             return selected_words
    
 def user_spelling_score(selected_words):
+    """
+    Pronouce each word with robot voice and ask user to spell each word recording their score
+    :param selected_words: A list of eight unique words
+    :type selected_words: list
+    :return: The user final score
+    :rtype: int
+    """
     score = 0
     life = 3
     for word in selected_words:
@@ -120,12 +127,24 @@ def user_spelling_score(selected_words):
     return score
         
 def word_to_audio(word):
+    """
+    Turns word to audio
+    :param word: A word to be pronounces with pyttsx3
+    :type word: str
+    """
     engine = pyttsx3.init()
     engine.setProperty('rate', 120)
     engine.say(word)
     engine.runAndWait()
     
 def save_score(username, score):
+    """
+    Saves the username and score in score.csv file
+    :param username: The name of the current user
+    :type username: str
+    :param score: The final score of the current user
+    :type score: int
+    """
     with open("score.csv", "a") as file:
         writer = csv.DictWriter(file, fieldnames=["name", "score"])
         # writer.writeheader()
