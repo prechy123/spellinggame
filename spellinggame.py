@@ -5,6 +5,7 @@ import pyttsx3
 
 
 def main():
+    username = input("Whats your username: ").capitalize().strip()
     level: int = get_user_level()
     difficulty: str = get_user_difficulty(level)
     words = get_words(difficulty)
@@ -14,7 +15,8 @@ def main():
         emoji = "( ͡👁️ ‿ ͡👁️ )"
     else:
         emoji = "¯\_( ͡° _> ͡°)_/¯"
-    print(f"Your final score is {score} {emoji}")
+    print(f"{username} final score is {score} {emoji}")
+    save_score(username, score)
     
 def get_user_level() -> int:
     """
@@ -123,6 +125,12 @@ def word_to_audio(word):
     engine.say(word)
     engine.runAndWait()
     
+def save_score(username, score):
+    with open("score.csv", "a") as file:
+        writer = csv.DictWriter(file, fieldnames=["name", "score"])
+        # writer.writeheader()
+        writer.writerow({"name": username, "score": score})
+   
         
 if __name__ == "__main__":
     main()
