@@ -1,4 +1,4 @@
-from tabulate import tabulate
+from tabulate import tabulate #type: ignore
 
 
 def main():
