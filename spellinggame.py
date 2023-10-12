@@ -4,6 +4,7 @@ import random
 import pyttsx3  # type: ignore
 import pandas as pd  # type: ignore
 import time
+import sys
 
 
 def main():
@@ -11,7 +12,7 @@ def main():
     level: int = get_user_level()
     difficulty: str = get_user_difficulty(level)
     words: list = get_words(difficulty)
-    selected_words: set = select_five_words(words)
+    selected_words: set = select_eight_words(words)
     score: int = user_spelling_score(selected_words)
     if score > 5:
         emoji = "( ͡👁️ ‿ ͡👁️ )"
@@ -67,7 +68,7 @@ def get_user_difficulty(level) -> str:
         case 5:
             return "Impossible"
         case _:
-            return "None"
+            raise ValueError("Value must be between 1 to 5")
 
 
 def get_words(difficulty) -> list:
@@ -87,7 +88,7 @@ def get_words(difficulty) -> list:
     return words
 
 
-def select_five_words(words) -> set:
+def select_eight_words(words) -> set:
     """
     Gets eight unique random from list of words
     :param words: list of words gotting from difficulty
@@ -162,11 +163,20 @@ def word_to_audio(word):
     Turns word to audio
     :param word: A word to be pronounces with pyttsx3
     :type word: str
+    :return: "success if successfull"
+    :rtype: str
     """
-    engine = pyttsx3.init()
-    engine.setProperty("rate", 120)
-    engine.say(word)
-    engine.runAndWait()
+    try:
+        engine = pyttsx3.init()
+        engine.setProperty("rate", 120)
+        engine.say(word)
+        engine.runAndWait()
+        return "success"
+    except Exception as e:
+        sys.exit(e)
+        
+        
+    
 
 
 def save_score(username, score):

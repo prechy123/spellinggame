@@ -8,3 +8,5 @@ pandas
 time
 mypy
 black
+pytest
+sys
