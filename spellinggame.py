@@ -124,11 +124,15 @@ def user_spelling_score(selected_words) -> int:
             return score
         print("Pronouncing word...")
         word_to_audio(word)
-        print("You have 20 seconds to spell this word, if time is excedded game over and total score subtracted by 1")
+        print(
+            "You have 20 seconds to spell this word, if time is excedded game over and total score subtracted by 1"
+        )
         expiration_time = time.time() + 20
-        answer = get_answer(word)
+        answer: str = get_answer(word)
         if time.time() >= expiration_time:
-            print(f"Time exceed allocated time by {(time.time() - expiration_time):.2f} seconds")
+            print(
+                f"Time exceed allocated time by {(time.time() - expiration_time):.2f} seconds"
+            )
             return score - 1
         if answer == word:
             score += 1
@@ -140,16 +144,17 @@ def user_spelling_score(selected_words) -> int:
             print("👎")
     return score
 
-def get_answer(word):
+
+def get_answer(word) -> str:
     while True:
-        answer = input("Enter Spelling or enter R to repeat word: \n").lower().capitalize()
+        answer = (
+            input("Enter Spelling or enter R to repeat word: \n").lower().capitalize()
+        )
         if answer == "R":
             word_to_audio(word)
             continue
         return answer
-        
-                
-        
+
 
 def word_to_audio(word):
     """
