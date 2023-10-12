@@ -3,6 +3,7 @@ import csv
 import random
 import pyttsx3  # type: ignore
 import pandas as pd  # type: ignore
+import time
 
 
 def main():
@@ -16,7 +17,7 @@ def main():
         emoji = "( ͡👁️ ‿ ͡👁️ )"
     else:
         emoji = "¯\_( ͡° _> ͡°)_/¯"
-    print(f"{username} final score is {score} {emoji}")
+    print(f"{username}'s final score is {score} {emoji}")
     save_score(username, score)
     get_current()
 
@@ -125,7 +126,12 @@ def user_spelling_score(selected_words) -> int:
             life += 1
         print("Pronouncing word...")
         word_to_audio(word)
+        print("You have 20 seconds to spell this word, if time is excedded game over and total score subtracte by 1")
+        expiration_time = time.time() + 20
         answer = input("Enter Spelling: ").capitalize()
+        if time.time() >= expiration_time:
+            print(f"Time exceed allocated time by {(time.time() - expiration_time):.2f} seconds")
+            return score - 1
         if answer == word:
             score += 1
             print("👍")
@@ -186,14 +192,20 @@ def get_highscore():
     """
     highscores = []
     sorted_highscores = []
+    topfive_highscores = []
     with open("score.csv", "r") as file:
         reader = csv.DictReader(file)
         for row in reader:
             highscores.append({"name": row["name"], "score": row["score"]})
     for highscore in sorted(highscores, key=lambda h: h["score"], reverse=True):
         sorted_highscores.append(highscore)
-    # check from using pandas to using tabulate library
-    print(pd.DataFrame(sorted_highscores))
+    for highscore in sorted_highscores:
+        if len(topfive_highscores) == 5:
+            break
+        topfive_highscores.append(highscore)
+    print("Top five(5) scores are: ")
+    df = pd.DataFrame(topfive_highscores, index=["1ST", "2ND", "3RD", "4TH", "5TH"])
+    print(df)
 
 
 if __name__ == "__main__":
