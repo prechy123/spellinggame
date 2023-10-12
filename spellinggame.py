@@ -1,3 +1,11 @@
+"""
+Spell the Word game
+Name: Bamidele Precious
+City, Country: Akure, Nigeria
+github: https://github.com/prechy123
+"""
+
+
 from tabulate import tabulate  # type: ignore
 import csv
 import random
@@ -8,7 +16,7 @@ import sys
 
 
 def main():
-    username = input("Whats your username: ").capitalize().strip()
+    username = input("Whats your username: ").capitalize().strip().split(" ")[0]
     level: int = get_user_level()
     difficulty: str = get_user_difficulty(level)
     words: list = get_words(difficulty)
@@ -125,7 +133,6 @@ def user_spelling_score(selected_words) -> int:
             return score
         print("Pronouncing word...")
         word_to_audio(word)
-        print(word)
         print(
             "You have 20 seconds to spell this word, if time is excedded game over and total score subtracted by 1"
         )
@@ -209,7 +216,7 @@ def get_current(score):
             print("Enter either {H, C or N}")
 
 
-def get_highscore(score):
+def get_highscore(mainscore):
     """
     To get the highscores and arrange in descending order based on score, and using pandas to format it making it understandable
     """
@@ -238,7 +245,7 @@ def get_highscore(score):
     df = pd.DataFrame(topfive_highscores, index=["1ST", "2ND", "3RD", "4TH", "5TH"])
     print(df)
     print("The average score is ", average_score)
-    if int(score) >= average_score:
+    if int(mainscore) >= average_score:
         print("You surpassed average mark")
     else:
         print("Do better you are bellow average")
