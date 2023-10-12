@@ -174,9 +174,6 @@ def word_to_audio(word):
         return "success"
     except Exception as e:
         sys.exit(e)
-        
-        
-    
 
 
 def save_score(username, score):
@@ -232,7 +229,7 @@ def get_highscore(score):
         score = highscore["score"]
         total += int(score)
         number += 1
-    average_score += round(total/number)
+    average_score += round(total / number)
     for highscore in sorted_highscores:
         if len(topfive_highscores) == 5:
             break
