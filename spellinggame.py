@@ -122,13 +122,11 @@ def user_spelling_score(selected_words) -> int:
         print(tabulate(table, headers, tablefmt="simple_grid"))
         if life == 0:
             return score
-        if score == 2 or score == 5:
-            life += 1
         print("Pronouncing word...")
         word_to_audio(word)
-        print("You have 20 seconds to spell this word, if time is excedded game over and total score subtracte by 1")
+        print("You have 20 seconds to spell this word, if time is excedded game over and total score subtracted by 1")
         expiration_time = time.time() + 20
-        answer = input("Enter Spelling: ").capitalize()
+        answer = input("Enter Spelling: ").lower().capitalize()
         if time.time() >= expiration_time:
             print(f"Time exceed allocated time by {(time.time() - expiration_time):.2f} seconds")
             return score - 1
@@ -138,6 +136,8 @@ def user_spelling_score(selected_words) -> int:
         else:
             life -= 1
             print("👎")
+        if score == 2 or score == 5:
+            life += 1
     return score
 
 
