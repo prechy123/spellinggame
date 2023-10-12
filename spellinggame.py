@@ -133,11 +133,11 @@ def user_spelling_score(selected_words) -> int:
         if answer == word:
             score += 1
             print("👍")
+            if score == 2 or score == 5:
+                life += 1
         else:
             life -= 1
             print("👎")
-        if score == 2 or score == 5:
-            life += 1
     return score
 
 
