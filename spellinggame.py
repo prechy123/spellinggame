@@ -19,7 +19,7 @@ def main():
         emoji = "¯\_( ͡° _> ͡°)_/¯"
     print(f"{username}'s final score is {score} {emoji}")
     save_score(username, score)
-    get_current()
+    get_current(score)
 
 
 def get_user_level() -> int:
@@ -124,6 +124,7 @@ def user_spelling_score(selected_words) -> int:
             return score
         print("Pronouncing word...")
         word_to_audio(word)
+        print(word)
         print(
             "You have 20 seconds to spell this word, if time is excedded game over and total score subtracted by 1"
         )
@@ -182,7 +183,7 @@ def save_score(username, score):
         writer.writerow({"name": username, "score": score})
 
 
-def get_current():
+def get_current(score):
     """
     To get use next move to either check highscore or cancel the game or start a new game
     """
@@ -191,8 +192,8 @@ def get_current():
     ).lower()
     match current:
         case "h":
-            get_highscore()
-            get_current()
+            get_highscore(score)
+            get_current(score)
         case "c":
             pass
         case "n":
@@ -201,13 +202,16 @@ def get_current():
             print("Enter either {H, C or N}")
 
 
-def get_highscore():
+def get_highscore(score):
     """
     To get the highscores and arrange in descending order based on score, and using pandas to format it making it understandable
     """
     highscores = []
     sorted_highscores = []
     topfive_highscores = []
+    total = 0
+    number = 0
+    average_score = 0
     with open("score.csv", "r") as file:
         reader = csv.DictReader(file)
         for row in reader:
@@ -215,12 +219,22 @@ def get_highscore():
     for highscore in sorted(highscores, key=lambda h: h["score"], reverse=True):
         sorted_highscores.append(highscore)
     for highscore in sorted_highscores:
+        score = highscore["score"]
+        total += int(score)
+        number += 1
+    average_score += round(total/number)
+    for highscore in sorted_highscores:
         if len(topfive_highscores) == 5:
             break
         topfive_highscores.append(highscore)
     print("Top five(5) scores are: ")
     df = pd.DataFrame(topfive_highscores, index=["1ST", "2ND", "3RD", "4TH", "5TH"])
     print(df)
+    print("The average score is ", average_score)
+    if int(score) >= average_score:
+        print("You surpassed average mark")
+    else:
+        print("Do better you are bellow average")
 
 
 if __name__ == "__main__":
