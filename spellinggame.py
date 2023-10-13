@@ -1,11 +1,3 @@
-"""
-Spell the Word game
-Name: Bamidele Precious
-City, Country: Akure, Nigeria
-github: https://github.com/prechy123
-"""
-
-
 from tabulate import tabulate  # type: ignore
 import csv
 import random
