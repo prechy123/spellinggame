@@ -14,6 +14,5 @@ def test_select_eight_words():
     result2 = select_eight_words(['Hippopotomonstrosesquipedaliophobia', 'Supercalifragilisticexpialidocious', 'Antiestablishmentarianism', 'Pneumonoultramicroscopicsilicovolcanoconiosis', 'Parastratiosphecomyiastratiosphecomyioides', 'Floccinaucinihilipilification', 'Antitransubstantiationalistically', 'Microspectrophotometrically', 'Indistinguishableness', 'Overintellectualization', 'Pharmacopoeiist', 'Hippopotamus', 'Incomprehensibilities', 'Polyphiloprogenitive', 'Honorificabilitudinitatibus', 'Supercalifragilisticexpialidoses', 'Electroencephalographically', 'Pseudopseudohypoparathyroidism', 'Immunoelectrophoretically', 'Thyroparathyroidectomized'])
     assert len(result2) == 8
     
-def test_word_to_audio():
     assert word_to_audio("book") == "success"
     assert word_to_audio("Cat") == "success"
