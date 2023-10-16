@@ -12,7 +12,6 @@ Welcome to the documentation for the Spelling Bee Game! This Python application 
 4. [Game Instructions](#game-instructions)
 5. [High Scores](#high-scores)
 6. [Contributing](#contributing)
-7. [License](#license)
 
 ## Introduction
 
@@ -34,7 +33,7 @@ Before running the Spelling Bee Game, you need to ensure you have the following 
   ```bash
   pip install tabulate pyttsx3 pandas mypy black pytest
   ```
--tabulate, csv, random, pyttsx3, pandas, time, mypy, black, pytest, sys 
+- Libraries used throughout the project tabulate, csv, random, pyttsx3, pandas, time, mypy, black, pytest, sys 
 
 ## Getting Started
 
