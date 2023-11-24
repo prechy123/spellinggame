@@ -28,7 +28,7 @@ The Spelling Bee Game is a command-line-based spelling game designed to help you
 Before running the Spelling Bee Game, you need to ensure you have the following prerequisites installed:
 
 - Python 3.x
-- Required Python packages (you can install them using pip):
+- Required Python packages (install them using pip):
 
   ```bash
   pip install tabulate pyttsx3 pandas mypy black pytest
